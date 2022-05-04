@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+
+<style type="text/css">
+    .table {
+        border: 1px solid black;
+    }
+
+    .table-header {
+        text-align: center;
+        background: none repeat scroll 0 0 #E5E5E5;
+        border: 1px solid darkslategrey;
+        padding: 5px 25px 5px 25px;
+    }
+
+    td {
+        text-align: center;
+        border-bottom: 1px solid #BBBBBB;
+    }
+</style>
+
+<h:body>
+    <h2>Dishes chosen for order: #{dishesForOrder.order.id}</h2>
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-header">Id</th>
+            <th class="table-header">Name</th>
+            <th class="table-header">Price</th>
+            <th class="table-header">Description</th>
+        </tr>
+        <ui:repeat value="#{dishesForOrder.order.dishes}" var="dish">
+            <tr>
+                <td>#{dish.id}</td>
+                <td>#{dish.name}</td>
+                <td>#{dish.price}</td>
+                <td>#{dish.description}</td>
+            </tr>
+        </ui:repeat>
+    </table>
+    <br/>
+
+    <h:link outcome="orders?customerId=#{dishesForOrder.order.customer.id}" value="Back to order page"/>
+</h:body>
+</html>

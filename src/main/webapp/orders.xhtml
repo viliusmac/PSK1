@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+
+<style type="text/css">
+    .table {
+        border: 1px solid black;
+    }
+
+    .table-header {
+        text-align: center;
+        background: none repeat scroll 0 0 #E5E5E5;
+        border: 1px solid darkslategrey;
+        padding: 5px 25px 5px 25px;
+    }
+
+    td {
+        text-align: center;
+        border-bottom: 1px solid #BBBBBB;
+    }
+</style>
+
+<h:body>
+    <h2>Customer chosen: #{ordersForCustomer.customer.firstName} #{ordersForCustomer.customer.lastName}</h2>
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-header">Id</th>
+            <th class="table-header">Date</th>
+            <th class="table-header">Link to orders</th>
+        </tr>
+        <ui:repeat value="#{ordersForCustomer.customer.orders}" var="order">
+            <tr>
+                <td>#{order.id}</td>
+                <td>#{order.date}</td>
+                <td><h:link value="SHOW DISHES" outcome="orderedDishes?orderId=#{order.id}"/></td>
+            </tr>
+        </ui:repeat>
+    </table>
+    <br/>
+    <h3>Add an new order:</h3>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Dish ids "1, 2, 15":</h:outputLabel>
+            <h:inputText value="#{ordersForCustomer.dishIdsStr}" required="true"/>
+        </h:panelGrid>
+
+        <h:commandButton value="Add order"
+                         actionListener="#{ordersForCustomer.createOrder()}"
+                         action="#{'orders?faces-redirect=true&amp;customerId='.concat(ordersForCustomer.customer.id)}">
+            <f:param name="customerId" value="#{ordersForCustomer.customer.id}"/>
+        </h:commandButton>
+    </h:form>
+
+    <br/>
+    <hr/>
+
+    <h2>All dishes:</h2>
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-header">Id</th>
+            <th class="table-header">Name</th>
+            <th class="table-header">Price</th>
+            <th class="table-header">Description</th>
+        </tr>
+        <ui:repeat value="#{ordersForCustomer.allDishes}" var="dish">
+            <tr>
+                <td>#{dish.id}</td>
+                <td>#{dish.name}</td>
+                <td>#{dish.price}</td>
+                <td>#{dish.description}</td>
+            </tr>
+        </ui:repeat>
+    </table>
+    <br/>
+    <h3>Add an new dish:</h3>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Name:</h:outputLabel>
+            <h:inputText value="#{ordersForCustomer.dishToCreate.name}" required="true"/>
+
+            <h:outputLabel>Price:</h:outputLabel>
+            <h:inputText value="#{ordersForCustomer.dishToCreate.price}" required="true"/>
+
+            <h:outputLabel>Description:</h:outputLabel>
+            <h:inputText a:placeholder="optional" value="#{ordersForCustomer.dishToCreate.description}" required="false"/>
+        </h:panelGrid>
+        <h:commandButton value="Add dish"
+                         actionListener="#{ordersForCustomer.createDish()}"
+                         action="#{'orders?faces-redirect=true&amp;customerId='.concat(ordersForCustomer.customer.id)}">
+            <f:param name="customerId" value="#{ordersForCustomer.customer.id}"/>
+        </h:commandButton>
+    </h:form>
+    <br/>
+    <h:link outcome="index" value="Back to customer page"/>
+</h:body>
+</html>
