@@ -5,17 +5,58 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 <h:head/>
+<style type="text/css">
+    .table{
+        border: 1px solid black;
+    }
+
+    .table-header{
+        text-align:center;
+        background:none repeat scroll 0 0 #E5E5E5;
+        border:1px solid darkslategrey;
+        padding: 5px 25px 5px 25px;
+    }
+
+    td {
+        text-align:center;
+        border-bottom:1px solid #BBBBBB;
+    }
+</style>
+
 <h:body>
-    <h2>Teams:</h2>
-    <ol>
-        <ui:repeat value="#{teams.allTeams}" var="team">
-            <li><h:link value="#{team.name}" outcome="players?teamId=#{team.id}" /></li>
+    <h2>Customers:</h2>
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-header">Id</th>
+            <th class="table-header">First Name</th>
+            <th class="table-header">Last Name</th>
+            <th class="table-header">Link</th>
+        </tr>
+        <ui:repeat value="#{customers.allCustomers}" var="customer">
+            <tr>
+                <td>#{customer.id}</td>
+                <td>#{customer.firstName}</td>
+                <td>#{customer.lastName}</td>
+                <td><h:link value="ACCESS" outcome="orders?customerId=#{customer.id}" /></td>
+            </tr>
         </ui:repeat>
-    </ol>
+    </table>
+
+    <br/>
+    <br/>
+
+    <h2>Add Customers:</h2>
     <h:form>
-        <h:inputText value="#{teams.teamToCreate.name}" required="true" />
-        <h:commandButton value="Add new team" actionListener="#{teams.createTeam}" action="index?faces-redirect=true"/>
+        <h:panelGrid columns="2">
+            <h:outputLabel>First Name:</h:outputLabel>
+            <h:inputText value="#{customers.customerToCreate.firstName}" required="true" />
+
+            <h:outputLabel>Last Name:</h:outputLabel>
+            <h:inputText value="#{customers.customerToCreate.lastName}" required="true" />
+        </h:panelGrid>
+
+        <h:commandButton value="Add new Customer" actionListener="#{customers.createCustomer()}" action="index?faces-redirect=true"/>
     </h:form>
-    <h:link outcome="myBatis/teams" value="MyBatis implementation"/>
+    <h:link outcome="myBatis/customers" value="MyBatis implementation"/>
 </h:body>
 </html>
