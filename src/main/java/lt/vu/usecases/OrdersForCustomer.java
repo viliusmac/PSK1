@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -84,4 +83,6 @@ public class OrdersForCustomer implements Serializable {
         }
         this.dishesDAO.persist(dishToCreate);
     }
+
+
 }

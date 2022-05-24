@@ -1,13 +1,27 @@
 package lt.vu.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @NamedQueries({
@@ -24,14 +38,14 @@ public class Order implements Serializable {
     @Column(name = "DATE")
     private Date date;
 
-    @ManyToMany
+    @ManyToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "DISHES",
             joinColumns = @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "DISH_ID", referencedColumnName = "ID"))
     List<Dish> dishes;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CUSTOMER_ID")
     private Customer customer;
 

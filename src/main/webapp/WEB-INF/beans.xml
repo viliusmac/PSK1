@@ -9,4 +9,10 @@
     <interceptors>
         <class>lt.vu.interceptors.MethodLogger</class>
     </interceptors>
+    <decorators>
+        <class>lt.vu.decorators.CustomerDeleterDecorator</class>
+    </decorators>
+    <alternatives>
+        <class>lt.vu.persistence.CustomerNoOrdersDAO</class>
+    </alternatives>
 </beans>
