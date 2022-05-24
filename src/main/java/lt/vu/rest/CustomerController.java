@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 
 import lombok.Getter;
 import lombok.Setter;
+import lt.vu.decorators.IDeleter;
 import lt.vu.entities.Customer;
 import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.CustomerDAO;
@@ -43,6 +44,9 @@ public class CustomerController {
 
     @Inject
     private CustomerDAO customerDAO;
+
+    @Inject
+    private IDeleter iDeleter;
 
     private CompletableFuture<String> generateRandomStr = null;
 
@@ -97,7 +101,7 @@ public class CustomerController {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response delete(@PathParam("id") final Integer id) {
-        return Response.ok(new CustomerDto(customerService.delete(id))).build();
+        return Response.ok(new CustomerDto(iDeleter.deleteById(id))).build();
     }
 
     @Path("/status")
