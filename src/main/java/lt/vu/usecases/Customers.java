@@ -34,6 +34,10 @@ public class Customers {
         this.customerDAO.persist(customerToCreate);
     }
 
+    public void updateCustomer(){
+        this.customerDAO.update(customerToCreate);
+    }
+
     private void loadAllCustomers(){
         this.allCustomers = customerDAO.loadAll();
     }

@@ -1,13 +1,24 @@
 package lt.vu.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @NamedQueries({
@@ -32,7 +43,7 @@ public class Dish implements Serializable {
     @Column(name = "PRICE")
     private Double price;
 
-    @ManyToMany(mappedBy = "dishes")
+    @ManyToMany(mappedBy = "dishes", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     List<Order> orders;
 
     public Dish() {

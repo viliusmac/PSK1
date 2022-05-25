@@ -29,4 +29,8 @@ public class CustomerDAO {
     public Customer update(Customer customer){
         return em.merge(customer);
     }
+
+    public void delete(Customer customer){
+        em.remove(customer);
+    }
 }
