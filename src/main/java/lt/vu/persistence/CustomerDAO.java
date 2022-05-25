@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import lt.vu.entities.Customer;
 
 @ApplicationScoped
-public class CustomerDAO {
+public class CustomerDAO implements ICustomerDAO {
 
     @Inject
     private EntityManager em;
