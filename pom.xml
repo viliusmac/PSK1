@@ -58,7 +58,7 @@
                     <artifactId>mybatis-generator-maven-plugin</artifactId>
                     <version>1.4.0</version>
                     <configuration>
-                        <contexts>DishOrdersDB2</contexts>
+                        <contexts>DishOrdersDB4</contexts>
                         <verbose>true</verbose>
                     </configuration>
                     <executions>
